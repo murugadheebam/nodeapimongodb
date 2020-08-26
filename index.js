@@ -1,8 +1,13 @@
 const express = require('express');
 const app = express();
 var bodyParser = require('body-parser');
-var urlencode = bodyParser.urlencoded({ extended: true});
-
+var cors = require('cors')
+app.use(cors())
+var corsOptions = {
+    origin: 'http://localhost:4200/',
+  }
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: true }));
 const dbConfig = require('./config/database.config.js');
 const mongoose = require('mongoose');
 
