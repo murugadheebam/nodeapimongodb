@@ -14,9 +14,11 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 var AuthusersRoutes = require('./routes/authusersroutes');
 var CompaniesRoutes = require('./routes/companiesroutes');
+var CountriesRoutes = require('./routes/countriesroutes');
 
 app.use('/authusers', AuthusersRoutes);
 app.use('/companies', CompaniesRoutes);
+app.use('/countries', CountriesRoutes);
 
 // Connecting to the database
 mongoose.connect(dbConfig.url, {
