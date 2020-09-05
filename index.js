@@ -6,8 +6,8 @@ app.use(cors())
 var corsOptions = {
     origin: 'http://localhost:4200/',
   }
-app.use(bodyParser.json()); 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({limit: '10mb', extended: true}))
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
 const dbConfig = require('./config/database.config.js');
 const mongoose = require('mongoose');
 
@@ -15,10 +15,14 @@ mongoose.Promise = global.Promise;
 var AuthusersRoutes = require('./routes/authusersroutes');
 var CompaniesRoutes = require('./routes/companiesroutes');
 var CountriesRoutes = require('./routes/countriesroutes');
+var StatesRoutes = require('./routes/statesroutes');
+var CitiesRoutes = require('./routes/citiesroutes');
 
 app.use('/authusers', AuthusersRoutes);
 app.use('/companies', CompaniesRoutes);
 app.use('/countries', CountriesRoutes);
+app.use('/states', StatesRoutes);
+app.use('/cities', CitiesRoutes);
 
 // Connecting to the database
 mongoose.connect(dbConfig.url, {

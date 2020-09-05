@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const CountriesSchema = mongoose.Schema({
+const StatesSchema = mongoose.Schema({
     name:String,
     country_id:{
         type: mongoose.Schema.Types.ObjectId,
@@ -8,4 +8,4 @@ const CountriesSchema = mongoose.Schema({
       }
 });
 
-module.exports = mongoose.model('countries', CountriesSchema);
+module.exports = mongoose.model('states', StatesSchema);
