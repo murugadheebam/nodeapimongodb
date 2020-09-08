@@ -17,12 +17,14 @@ var CompaniesRoutes = require('./routes/companiesroutes');
 var CountriesRoutes = require('./routes/countriesroutes');
 var StatesRoutes = require('./routes/statesroutes');
 var CitiesRoutes = require('./routes/citiesroutes');
+var UsersRoutes = require('./routes/usersroutes');
 
 app.use('/authusers', AuthusersRoutes);
 app.use('/companies', CompaniesRoutes);
 app.use('/countries', CountriesRoutes);
 app.use('/states', StatesRoutes);
 app.use('/cities', CitiesRoutes);
+app.use('/users', UsersRoutes);
 
 // Connecting to the database
 mongoose.connect(dbConfig.url, {
