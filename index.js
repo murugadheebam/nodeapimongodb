@@ -18,6 +18,7 @@ var CountriesRoutes = require('./routes/countriesroutes');
 var StatesRoutes = require('./routes/statesroutes');
 var CitiesRoutes = require('./routes/citiesroutes');
 var UsersRoutes = require('./routes/usersroutes');
+var BikesRoutes = require('./routes/bikesroutes');
 
 app.use('/authusers', AuthusersRoutes);
 app.use('/companies', CompaniesRoutes);
@@ -25,6 +26,7 @@ app.use('/countries', CountriesRoutes);
 app.use('/states', StatesRoutes);
 app.use('/cities', CitiesRoutes);
 app.use('/users', UsersRoutes);
+app.use('/bikes', BikesRoutes);
 
 // Connecting to the database
 mongoose.connect(dbConfig.url, {
