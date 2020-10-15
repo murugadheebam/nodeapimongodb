@@ -1,6 +1,7 @@
 const Bikes = require('../models/bikesmodels.js');
 const Bikemodels = require('../models/bikemodels.js');
 const Bikeimages = require('../models/bikeimagesmodels.js');
+const Bikepricingmaster = require('../models/bikepricingmastermodels.js');
 
 //get all bikes
 exports.getallbikes = (req, res) => {
@@ -42,6 +43,8 @@ exports.getallbikes = (req, res) => {
   };
   //create bike
   exports.createbike = (req, res) => {
+    console.log(req.body);
+    console.log(req.file);
     // console.log(req.headers);
     // req.on('data', (data) => {
     //   console.log(data.toString());
@@ -79,3 +82,21 @@ exports.getallbikes = (req, res) => {
        
     //  });
  }
+ exports.getallbikepricing = (req, res) => {
+  try {
+    Bikepricingmaster.find(function(err,Bikepricing){
+       if(Object.keys(Bikepricing).length === 0)
+       {
+         res.send({ status: "no data" });  
+       }
+       else
+       {
+         res.send({ status:"success",Bikepricing: Bikepricing });   
+       }
+       
+      })
+       
+      } catch (e) {
+        res.send({ status: "Error in Fetching user" });
+      }
+};
