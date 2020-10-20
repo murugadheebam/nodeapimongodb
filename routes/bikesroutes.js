@@ -19,6 +19,7 @@ router.post('/uploadbikeimage',upload.single('file'),function(req, res, next){
 
 });
 router.get('/getallbikepricing', bikes.getallbikepricing);
+router.get('/getallpromotion', bikes.getallpromotion);
 
 module.exports = router;
 

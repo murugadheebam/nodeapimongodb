@@ -8,7 +8,7 @@ const BikesSchema = mongoose.Schema({
     status:Number,
     hire_status:Number,
     decline_reason:String,
-    approved_by:{ type: mongoose.Schema.Types.ObjectId, ref: "Users"},
+    approved_by:String,
     created_at: {type: Date,default:new Date().toISOString()},
     updated_at:{ type: Date,default: ''},
     approved_at:{ type: Date,default: ''},
