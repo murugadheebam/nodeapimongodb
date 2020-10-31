@@ -9,4 +9,4 @@ const BikepromotionsmodelsSchema = mongoose.Schema({
    
 });
 
-module.exports = mongoose.model('bike_promotion', BikepromotionsmodelsSchema);
+module.exports = mongoose.model('bike_promotion', BikepromotionsmodelsSchema,'bike_promotion');

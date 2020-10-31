@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-mongoose.set("debug", (collectionName, method, query, doc) => {
-    console.log(`${collectionName}.${method}`, JSON.stringify(query), doc);
-});
+// mongoose.set("debug", (collectionName, method, query, doc) => {
+//     console.log(`${collectionName}.${method}`, JSON.stringify(query), doc);
+// });
 const BikepricingmastermodelsSchema = mongoose.Schema({
     pricingname: String,
     hours:Number,

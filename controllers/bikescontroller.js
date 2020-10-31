@@ -9,21 +9,35 @@ const Bikepromotion = require('../models/bikepromotionmodels.js');
 //get all bikes
 exports.getallbikes = (req, res) => {
     try {
-        Bikes.find(function(err,bikes){
-         if(Object.keys(bikes).length === 0)
+        Bikes.aggregate([{
+            $lookup:
+            {
+               from: 'bike_models',
+               localField: 'model_id',
+               foreignField: '_id',
+               as: 'bike_models'
+            }
+         },
          {
-           res.send({ status: "no data" });  
-         }
-         else
-         {
-           res.send({ status:"success",bikes: bikes });   
-         }
+          $lookup: {
+              from: "companies",
+              localField: "company_id",
+              foreignField: "_id",
+              as: "companies"
+          } 
+        } 
+        ],function(err, bikes) {
+         if (err)
+          throw err;
+          res.send({ bikes: bikes });
+  
          
-        })
-         
-        } catch (e) {
-          res.send({ status: "Error in Fetching user" });
-        }
+  
+      });
+    }
+    catch (e) {
+     res.send({ status: "Error in Fetching user" });
+    }
   };
   //get all bike models
   exports.getallbikemodels = (req, res) => {
@@ -48,10 +62,9 @@ exports.getallbikes = (req, res) => {
   exports.createbike = (req, res) => {
     //console.log(req.body);
      var bike_pricing=JSON.parse(req.body.bike_pricing);
-     var bikeimages=req.body.bike_images;
-     var bikepromotions=req.body.bike_promotions;
-
-     console.log(bike_pricing[0]._id);
+     var bikeimages=JSON.parse(req.body.bike_images);
+     var bikepromotions=JSON.parse(req.body.bike_promotions);
+     console.log(typeof bikepromotions);
       var bike = new Bikes(
       { 
        company_id: req.body.company_id,
@@ -71,9 +84,8 @@ exports.getallbikes = (req, res) => {
        else
        {
         var lastinserted_id=bike._id;
-        var bikepricingmaster=Bikepricingmaster.find(function(err,Bikepricing){ return Bikepricing });
-        console.log(bikepricingmaster);
-
+        Bikepricingmaster.find(function(err,bikepricingmaster){
+        
         for (const pricing of bikepricingmaster) {  
         var index = bike_pricing.findIndex(bpricing => bpricing._id == pricing._id);
         var amount=bike_pricing[index].amount;
@@ -87,6 +99,7 @@ exports.getallbikes = (req, res) => {
         });
         bikepricing.save();
         }
+        });
         for (const images of bikeimages) {  
           var bikeimage = new Bikeimages(
             { 
@@ -97,17 +110,29 @@ exports.getallbikes = (req, res) => {
         bikeimage.save();
         }
         for (const promotion of bikepromotions) { 
+          console.log(promotion)
+
           var bikepromotion = new Bikepromotion(
             { 
               promotion_id: promotion,
               bike_id:lastinserted_id,
               status:0,
             });
-            bikepromotion.save();
+            bikepromotion.save(function (err, pro) {
+              if(err)
+              {
+                console.log("vs");
+              }
+              else
+              {
+                console.log(pro._id);
+              }
+            });
         }
     }
        
      });
+     res.send({ status:"success"})
  }
  exports.getallbikepricing = (req, res) => {
   try {
